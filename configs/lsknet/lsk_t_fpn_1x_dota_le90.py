@@ -15,7 +15,7 @@ model = dict(
         drop_path_rate=0.1,
         depths=[3, 3, 5, 2],
         init_cfg=dict(type='Pretrained', checkpoint="/data/pretrained/lsk_t_backbone.pth.tar"),
-        norm_cfg=dict(type='SyncBN', requires_grad=True)),
+        norm_cfg=dict(type='BN', requires_grad=True)),
     neck=dict(
         type='FPN',
         in_channels=[32, 64, 160, 256],
