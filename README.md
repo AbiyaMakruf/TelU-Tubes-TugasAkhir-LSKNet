@@ -1,33 +1,8 @@
 
 ![lsk_arch](docs/lsk.png)
 
-[![PWC](http://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/object-detection-in-aerial-images-on-dota-1)](https://paperswithcode.com/sota/object-detection-in-aerial-images-on-dota-1?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/oriented-object-detection-on-dota-1-0)](https://paperswithcode.com/sota/oriented-object-detection-on-dota-1-0?p=large-selective-kernel-network-for-remote)
-[![PWC](http://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/object-detection-in-aerial-images-on-hrsc2016)](https://paperswithcode.com/sota/object-detection-in-aerial-images-on-hrsc2016?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/large-selective-kernel-network-for-remote/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=large-selective-kernel-network-for-remote)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/lsknet-a-foundation-lightweight-backbone-for/change-detection-on-s2looking)](https://paperswithcode.com/sota/change-detection-on-s2looking?p=lsknet-a-foundation-lightweight-backbone-for)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/lsknet-a-foundation-lightweight-backbone-for/change-detection-on-levir-cd)](https://paperswithcode.com/sota/change-detection-on-levir-cd?p=lsknet-a-foundation-lightweight-backbone-for)
-
-
-## This repository is the official implementation of IJCV (accepted in 2024) "LSKNet: A Foundation Lightweight Backbone for Remote Sensing" at: [IJCV](https://link.springer.com/article/10.1007/s11263-024-02247-9?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=nonoa_20241007&utm_content=10.1007/s11263-024-02247-9) or [arxiv](https://arxiv.org/abs/2403.11735)
-
-## Our conference version: ICCV 2023 "Large Selective Kernel Network for Remote Sensing Object Detection" at: [ICCV Open Access](https://openaccess.thecvf.com/content/ICCV2023/papers/Li_Large_Selective_Kernel_Network_for_Remote_Sensing_Object_Detection_ICCV_2023_paper.pdf)
-
-## Abstract
-
-
-Recent research on remote sensing object detection has largely focused on improving the representation of oriented bounding boxes but has overlooked the unique prior knowledge presented in remote sensing scenarios. Such prior knowledge can be useful because tiny remote sensing objects may be mistakenly detected without referencing a sufficiently long-range context, and the long-range context required by different types of objects can vary. In this paper, we take these priors into account and propose the Large Selective Kernel Network (LSKNet). LSKNet can dynamically adjust its large spatial receptive field to better model the ranging context of various objects in remote sensing scenarios. To the best of our knowledge, this is the first time that large and selective kernel mechanisms have been explored in the field of remote sensing object detection. Without bells and whistles, our lightweight LSKNet sets new state-of-the-art scores on standard remote sensing classification, object detection and semantic segmentation benchmarks. Based on a similar technique, we rank 2nd place in 2022 the Greater Bay Area International Algorithm Competition
-
 ## Introduction
 
-This repository is the official implementation of IJCV 2024 "LSKNet: A Foundation Lightweight Backbone for Remote Sensing" at: [arxiv](https://arxiv.org/abs/2403.11735)
-
-The master branch is built on MMRotate which works with **PyTorch 1.6+**.
-
-LSKNet backbone code is placed under mmrotate/models/backbones/, and the train/test configure files are placed under configs/lsknet/ 
 
 
 ## Results and models
@@ -69,16 +44,62 @@ MMRotate depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/o
 Below are quick steps for installation.
 Please refer to [Install Guide](https://mmrotate.readthedocs.io/en/latest/install.html) for more detailed instruction.
 
+- Download Anaconda dan Install
 ```shell
+<!-- Download Anaconda -->
+curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+
+<!-- Install Anaconda -->
+bash Anaconda3-2024.10-1-Linux-x86_64.sh -b 
+
+<!-- Reload terminal -->
+source ~/anaconda3/bin/activate
+source ~/.bashrc
+```
+
+- Install MMRotate
+```shell
+<!-- Create Conda Env -->
 conda create --name openmmlab python=3.8 -y
 conda activate openmmlab
 conda install pytorch==1.8.0 torchvision==0.9.0 cudatoolkit=10.2 -c pytorch
+
+<!-- Instal MM -->
 pip install -U openmim
 mim install mmcv-full
 mim install mmdet
+
+<!-- Clone LSKNet Repository -->
 git clone https://github.com/zcablii/Large-Selective-Kernel-Network.git
 cd Large-Selective-Kernel-Network
 pip install -v -e .
+
+<!-- Update Ubuntu dan Install unzip -->
+apt update
+apt install unzip -y
+```
+
+- Menghubungkan Conda Env Dengan Kernel
+```shell
+conda install ipykernel
+pip install timm roboflow jupyter future tensorboard gdown
+python -m ipykernel install --user --name=openmmlab --display-name "openmmlab" 
+```
+
+- Jalankan jupyter
+```shell
+jupyter notebook
+```
+
+- Catatan:
+```shell
+Jika hanya menggunakan single GPU maka ubah SyncBN menjadi BN di config yang akan digunakan! 
+
+Contoh-> norm_cfg=dict(type='SyncBN', requires_grad=True)) menjadi Ubah norm_cfg=dict(type='BN', requires_grad=True)) di configs/lsknet/lsk_s_ema_fpn_1x_dota_le90.py
+
+
+Jika menjalankan jupyter di server non-local jalankan dengan perintah berikut:
+jupyter notebook --ip=0.0.0.0 --port=8889 --no-browser --allow-root
 ```
 
 ## Get Started
@@ -91,47 +112,3 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 - [customize dataset](docs/en/tutorials/customize_dataset.md)
 - [customize model](docs/en/tutorials/customize_models.md)
 - [useful tools](docs/en/tutorials/useful_tools.md)
-
-
-
-# LSKNet for Remote Sensing Segmentation
-
-We further extend our work to segmentation tasks on the Potsdam, Vaihingen, LoveDA, and UAVid datasets. Please visit [LSKNet + GeoSeg](https://github.com/zcablii/GeoSeg).
-To facilitate easy reproduction and swift initiation for beginners, we offer our prepared remote sensing segmentation datasets here.
-
--[Vaihingen](https://pan.baidu.com/s/1SjOaZ55rUlghoggBcV1GCA?pwd=rssg)
--[Potsdam](https://pan.baidu.com/s/1yihagJKRDs_9i2qrI2Lh4Q?pwd=rssg)
--[LoveDA](https://pan.baidu.com/s/1OkeOrVQ1kvoxF7zYCdKz1Q?pwd=rssg)
--[uavid](https://pan.baidu.com/s/1FEvaU41Ay6D5Js7QwD4CGQ?pwd=rssg)
-
-## Acknowledgement
-
-MMRotate is an open source project that is contributed by researchers and engineers from various colleges and companies. We appreciate all the contributors who implement their methods or add new features, as well as users who give valuable feedbacks. We wish that the toolbox and benchmark could serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods.
-
-## Citation
-
-If you use this toolbox or benchmark in your research, please cite this project.
-
-```bibtex
-@article{Li_2024_IJCV,
-  title={LSKNet: A Foundation Lightweight Backbone for Remote Sensing},
-  author={Li, Yuxuan and Li, Xiang and Dai, Yimain and Hou, Qibin and Liu, Li and Liu, Yongxiang and Cheng, Ming-Ming and Yang, Jian},
-  journal={International Journal of Computer Vision},
-  year={2024},
-  doi = {https://doi.org/10.1007/s11263-024-02247-9},
-  publisher={Springer}
-}
-
-@InProceedings{Li_2023_ICCV,
-    author    = {Li, Yuxuan and Hou, Qibin and Zheng, Zhaohui and Cheng, Ming-Ming and Yang, Jian and Li, Xiang},
-    title     = {Large Selective Kernel Network for Remote Sensing Object Detection},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {16794-16805}
-}
-```
-
-## License
-Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for Non-commercial use only.
-Any commercial use should get formal permission first.
