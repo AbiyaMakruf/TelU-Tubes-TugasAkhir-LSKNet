@@ -100,6 +100,7 @@ Contoh-> norm_cfg=dict(type='SyncBN', requires_grad=True)) menjadi Ubah norm_cfg
 
 Jika menjalankan jupyter di server non-local jalankan dengan perintah berikut:
 jupyter notebook --ip=0.0.0.0 --port=8889 --no-browser --allow-root
+jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.allow_origin='*' --NotebookApp.allow_remote_access=True
 ```
 
 ## Get Started
