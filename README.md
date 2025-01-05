@@ -1,9 +1,11 @@
 
+# LSKNet
+
 ![lsk_arch](docs/lsk.png)
 
 ## Introduction
 
-
+LSKNet adalah "A Foundation Lightweight Backbone for Remote Sensing"
 
 ## Results and models
 
@@ -138,3 +140,78 @@ We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb), and other tutorials f
 - [customize dataset](docs/en/tutorials/customize_dataset.md)
 - [customize model](docs/en/tutorials/customize_models.md)
 - [useful tools](docs/en/tutorials/useful_tools.md)
+
+
+# Tutorial Menjalankan RunPod
+
+## 1. Deploy Pod di RunPod
+
+1. Akses [RunPod.io](https://www.runpod.io/) dan login.
+2. Pergi ke menu **Pods** dan lakukan deploy.
+3. Pilih GPU yang direkomendasikan: **A40 (VRAM 48GB)** atau **RTX4090 (VRAM 24GB)**.
+4. Konfigurasi deployment:
+   - Template: **RunPod PyTorch 2.4.0**
+   - Edit konfigurasi:
+     - Ekspose **port 6007** (untuk tensorboard)
+     - Sesuaikan **storage** sesuai kebutuhan (**disarankan 30GB**).
+5. Klik **Deploy On-Demand** dan tunggu hingga pod menyala.
+
+## 2. Menghubungkan ke Pod
+
+1. Setelah pod menyala, klik **Connect** → pilih **Connect to Jupyter Lab [Port 8888]**.
+2. Setelah launcher terbuka, pilih **Terminal**.
+3. Clone repository dengan perintah berikut:
+   ```bash
+   git clone https://github.com/AbiyaMakruf/TelU-Tubes-TugasAkhir-LSKNet.git
+   ```
+4. Verifikasi versi CUDA dan GCC:
+   ```bash
+   nvcc -V
+   gcc --version
+   ```
+   Pastikan keduanya terdeteksi agar proses training berjalan dengan lancar.
+
+## 3. Instalasi Dependencies
+
+Setiap kali pod dinyalakan, jalankan perintah berikut:
+```bash
+pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
+pip install -U openmim
+mim install mmcv-full
+mim install mmdet
+apt update
+apt install unzip -y
+pip install timm roboflow future tensorboard gdown
+```
+
+## 4. Instalasi MMRotate
+
+```bash
+cd TelU-Tubes-TugasAkhir-LSKNet/
+pip install -v -e .
+```
+
+## 5. Modifikasi Kode (Hanya Sekali)
+
+Buka file `mmrotate/core/post_processing.py`, lalu ubah baris **42**:
+
+**Sebelum:**
+```python
+labels = torch.arange(num_classes, dtype=torch.long)
+```
+
+**Sesudah:**
+```python
+labels = torch.arange(num_classes, dtype=torch.long, device=scores.device)
+```
+
+Jika sudah pernah diubah, **tidak perlu diubah kembali!**
+
+## 6. Menjalankan Training
+
+1. Buka `notebook.ipynb` di Jupyter Lab.
+2. Jalankan sel-sel di notebook untuk memulai training.
+
+---
+
+Silakan ikuti langkah-langkah di atas untuk menjalankan training menggunakan RunPod. Jika mengalami masalah, cek dokumentasi resmi atau forum diskusi komunitas. 🚀
