@@ -38,72 +38,95 @@ HRSC2016
 |  [ReDet](https://arxiv.org/abs/2103.07733)   |  90.46  |  97.63  | le90  |   3x    |    2\*4    | [redet_re50_refpn_3x_hrsc_le90](./configs/redet/redet_re50_refpn_3x_hrsc_le90.py) |                                                                  -                                                                   | Prev. Best |
 |                   LSKNet_S                   |  90.65  |  98.46  | le90  |   3x    |    1\*8    |       [lsk_s_fpn_3x_hrsc_le90](./configs/lsknet/lsk_s_fpn_3x_hrsc_le90.py)        | [model](https://download.openmmlab.com/mmrotate/v1.0/lsknet/lsk_s_fpn_3x_hrsc_le90/lsk_s_fpn_3x_hrsc_le90_20230205-4a4a39ce.pth) \| [log](https://download.openmmlab.com/mmrotate/v1.0/lsknet/lsk_s_fpn_3x_hrsc_le90/lsk_s_fpn_3x_hrsc_le90_20230205-4a4a39ce.pth) |            |
 
-## Installation
+# MMRotate Installation Guide
 
-MMRotate depends on [PyTorch](https://pytorch.org/), [MMCV](https://github.com/open-mmlab/mmcv) and [MMDetection](https://github.com/open-mmlab/mmdetection).
-Below are quick steps for installation.
-Please refer to [Install Guide](https://mmrotate.readthedocs.io/en/latest/install.html) for more detailed instruction.
+MMRotate bergantung pada [PyTorch](https://pytorch.org/), [MMCV](https://github.com/open-mmlab/mmcv), dan [MMDetection](https://github.com/open-mmlab/mmdetection). Berikut adalah langkah-langkah cepat untuk instalasi. Untuk petunjuk yang lebih rinci, silakan merujuk ke [Panduan Instalasi](https://mmrotate.readthedocs.io/en/latest/install.html).
 
-- Download Anaconda dan Install
+## 1. Instalasi Anaconda
+
+### Unduh dan Instal Anaconda:
 ```shell
-<!-- Download Anaconda -->
+# Unduh Anaconda
 curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
 
-<!-- Install Anaconda -->
+# Instal Anaconda
 bash Anaconda3-2024.10-1-Linux-x86_64.sh -b 
 
-<!-- Reload terminal -->
+# Reload terminal
 source ~/anaconda3/bin/activate
 source ~/.bashrc
 ```
 
-- Install MMRotate
+## 2. Instal MMRotate
+
+### Buat dan Aktifkan Environment Conda:
 ```shell
-<!-- Create Conda Env -->
+# Buat environment Conda
 conda create --name openmmlab python=3.8 -y
 conda activate openmmlab
-conda install pytorch==1.8.0 torchvision==0.9.0 cudatoolkit=10.2 -c pytorch
 
-<!-- Instal MM -->
+# Instal PyTorch dan dependensi lainnya
+conda install pytorch==1.8.0 torchvision==0.9.0 cudatoolkit=10.2 -c pytorch
+```
+
+### Instal Modul MMRotate:
+```shell
+# Instal OpenMMLab
 pip install -U openmim
 mim install mmcv-full
 mim install mmdet
+```
 
-<!-- Clone LSKNet Repository -->
+### Clone Repository LSKNet:
+```shell
 git clone https://github.com/zcablii/Large-Selective-Kernel-Network.git
 cd Large-Selective-Kernel-Network
 pip install -v -e .
+```
 
-<!-- Update Ubuntu dan Install unzip -->
+### Update Ubuntu dan Instal unzip:
+```shell
 apt update
 apt install unzip -y
 ```
 
-- Menghubungkan Conda Env Dengan Kernel
+## 3. Menghubungkan Conda Environment dengan Kernel Jupyter
 ```shell
 conda install ipykernel
 pip install timm roboflow jupyter future tensorboard gdown
-python -m ipykernel install --user --name=openmmlab --display-name "openmmlab" 
+python -m ipykernel install --user --name=openmmlab --display-name "openmmlab"
 ```
 
-- Jalankan jupyter
+## 4. Menjalankan Jupyter Notebook
 ```shell
 jupyter notebook
 ```
 
-- Catatan:
+## 5. Catatan Penting
+
+### Penggunaan Single GPU
+Jika hanya menggunakan satu GPU, ubah `SyncBN` menjadi `BN` di konfigurasi yang digunakan:
 ```shell
-Jika hanya menggunakan single GPU maka ubah SyncBN menjadi BN di config yang akan digunakan! 
+# Sebelum
+norm_cfg=dict(type='SyncBN', requires_grad=True)
 
-Contoh-> norm_cfg=dict(type='SyncBN', requires_grad=True)) menjadi Ubah norm_cfg=dict(type='BN', requires_grad=True)) di configs/lsknet/lsk_s_ema_fpn_1x_dota_le90.py
+# Sesudah
+norm_cfg=dict(type='BN', requires_grad=True)
+```
+Konfigurasi dapat ditemukan di:
+`configs/lsknet/lsk_s_ema_fpn_1x_dota_le90.py`
 
-
-Jika menjalankan jupyter di server non-local jalankan dengan perintah berikut:
+### Menjalankan Jupyter Notebook di Server Non-Local
+```shell
 jupyter notebook --ip=0.0.0.0 --port=8889 --no-browser --allow-root
 jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.allow_origin='*' --NotebookApp.allow_remote_access=True
-https://github.com/open-mmlab/mmrotate/issues/1066
-https://github.com/open-mmlab/mmrotate/issues/945
 ```
+
+## 6. Isu yang Mungkin Terjadi
+Jika menghadapi masalah selama instalasi atau penggunaan, periksa issue berikut:
+- [Issue #1066](https://github.com/open-mmlab/mmrotate/issues/1066)
+- [Issue #945](https://github.com/open-mmlab/mmrotate/issues/945)
+
 
 ## Get Started
 
