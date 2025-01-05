@@ -212,6 +212,12 @@ Jika sudah pernah diubah, **tidak perlu diubah kembali!**
 1. Buka `notebook.ipynb` di Jupyter Lab.
 2. Jalankan sel-sel di notebook untuk memulai training.
 
+## 7. Akses tensorboard setelah training berjalan
+
+1. Buka website runpod.
+2. Buka menu Pods dan pilih pod yang digunakan.
+3. klik **Connect** → pilih **Connect to HTTP Service [Port 6007]**.
+
 ---
 
 Silakan ikuti langkah-langkah di atas untuk menjalankan training menggunakan RunPod. Jika mengalami masalah, cek dokumentasi resmi atau forum diskusi komunitas. 🚀
