@@ -127,3 +127,14 @@ green-coffee-bean-defects-8-DOTA/
 manual_dataset/
 *.pth
 ssdd_tiny/
+*.zip
+
+# Dataset
+green-coffee-bean-defects-9/
+green-coffee-bean-defects-11/
+green-coffee-bean-defects-12/
+green-coffee-bean-defects-13/
+green-coffee-bean-defects-9-DOTA/
+green-coffee-bean-defects-11-DOTA/
+green-coffee-bean-defects-12-DOTA/
+green-coffee-bean-defects-13-DOTA/
