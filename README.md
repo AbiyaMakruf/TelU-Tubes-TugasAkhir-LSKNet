@@ -218,6 +218,25 @@ Jika sudah pernah diubah, **tidak perlu diubah kembali!**
 2. Buka menu Pods dan pilih pod yang digunakan.
 3. klik **Connect** → pilih **Connect to HTTP Service [Port 6007]**.
 
+# Performa Model
+
+## Score mAP pada data evaluasi
+| class             | gts | dets | recall | ap    |
+|-------------------|-----|------|--------|-------|
+| hitam             | 113 | 211  | 0.956  | 0.871 |
+| hitam-sebagian    | 96  | 202  | 0.938  | 0.804 |
+| kulit-kopi-kecil  | 74  | 149  | 1.000  | 0.961 |
+| **mAP**           |     |      |        | 0.879 |
+
+## Grafik training
+![Grafik Comparison](README/comparison_map.png)
+
+## Output Inferensi
+![Contoh Inferensi](README/inference_1.jpg)
+![Contoh Inferensi](README/inference_2.jpg)
+![Contoh Inferensi](README/inference_3.jpg)
+
+
 ---
 
 Silakan ikuti langkah-langkah di atas untuk menjalankan training menggunakan RunPod. Jika mengalami masalah, cek dokumentasi resmi atau forum diskusi komunitas. 🚀
