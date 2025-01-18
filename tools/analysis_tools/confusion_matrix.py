@@ -13,6 +13,14 @@ from mmdet.datasets import build_dataset
 
 from mmrotate.core.bbox import rbbox_overlaps
 
+from mmrotate.datasets.builder import ROTATED_DATASETS
+from mmrotate.datasets.dota import DOTADataset
+
+@ROTATED_DATASETS.register_module()
+class CoffeeDataset(DOTADataset):
+    """Custom Coffee Dataset for detection."""
+    CLASSES = ('hitam', 'hitam-sebagian', 'kulit-kopi-kecil',)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -26,7 +34,7 @@ def parse_args():
         '--show', action='store_true', help='show confusion matrix')
     parser.add_argument(
         '--color-theme',
-        default='plasma',
+        default='blues',
         help='theme of the matrix color map')
     parser.add_argument(
         '--score-thr',
@@ -151,7 +159,7 @@ def plot_confusion_matrix(confusion_matrix,
                           save_dir=None,
                           show=True,
                           title='Normalized Confusion Matrix',
-                          color_theme='plasma'):
+                          color_theme='Blues'):
     """Draw confusion matrix with matplotlib.
 
     Args:
@@ -170,7 +178,7 @@ def plot_confusion_matrix(confusion_matrix,
 
     num_classes = len(labels)
     fig, ax = plt.subplots(
-        figsize=(0.5 * num_classes, 0.5 * num_classes * 0.8), dpi=180)
+        figsize=(1 * num_classes, 1 * num_classes * 1), dpi=300)
     cmap = plt.get_cmap(color_theme)
     im = ax.imshow(confusion_matrix, cmap=cmap)
     plt.colorbar(mappable=im, ax=ax)
@@ -208,16 +216,15 @@ def plot_confusion_matrix(confusion_matrix,
     # draw confution matrix value
     for i in range(num_classes):
         for j in range(num_classes):
+            value = confusion_matrix[i, j]
+            color = 'black' if value < 50 else 'white'  # Warna font berdasarkan intensitas
             ax.text(
                 j,
                 i,
-                '{}%'.format(
-                    int(confusion_matrix[
-                        i,
-                        j]) if not np.isnan(confusion_matrix[i, j]) else -1),
+                '{}%'.format(int(value) if not np.isnan(value) else -1),
                 ha='center',
                 va='center',
-                color='w',
+                color=color,
                 size=7)
 
     ax.set_ylim(len(confusion_matrix) - 0.5, -0.5)  # matplotlib>3.1.1
